@@ -1,0 +1,11 @@
+[Unit]
+Description=Get data from YubiKey
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/yubikey-hack
+Restart=always
+EnvironmentFile=/etc/yubikey-hack/env
+
+[Install]
+WantedBy=multi-user.target
