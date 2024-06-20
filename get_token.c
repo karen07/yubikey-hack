@@ -15,7 +15,7 @@
 
 void serial_send_command()
 {
-    char *serial_dev = getenv("SERIAL_DEV");
+    char* serial_dev = getenv("SERIAL_DEV");
     const char check_sym = 'k';
 
     int serial_port = open(serial_dev, O_RDWR);
@@ -77,7 +77,7 @@ void serial_send_command()
 
 void usb_read_token(char* token)
 {
-    char *usb_dev = getenv("USB_DEV");
+    char* usb_dev = getenv("USB_DEV");
 
     struct pollfd fds[1];
     fds[0].fd = open(usb_dev, O_RDONLY | O_NONBLOCK);
