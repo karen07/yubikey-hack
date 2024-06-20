@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
+add_compile_options(-Wall -Werror)
 project(yubikey-hack)
 add_executable(yubikey-hack get_token.c)
 install(TARGETS yubikey-hack DESTINATION /usr/bin)
