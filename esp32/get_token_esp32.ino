@@ -10,7 +10,6 @@ void setup()
 void loop()
 {
     if (Serial.available() > 0) {
-
         incomingByte = Serial.read();
 
         if (incomingByte == 'k') {

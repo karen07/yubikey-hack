@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 
 void serial_send_command()
 {
@@ -127,7 +128,7 @@ void usb_read_token(char *token)
     close(fds[0].fd);
 }
 
-int main(int argc, char *argv[])
+int main()
 {
     int sockfd, connfd;
     struct sockaddr_in servaddr, cli;
