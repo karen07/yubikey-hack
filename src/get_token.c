@@ -15,7 +15,7 @@
 
 void serial_send_command()
 {
-    char* serial_dev = getenv("SERIAL_DEV");
+    char *serial_dev = getenv("SERIAL_DEV");
     const char check_sym = 'k';
 
     int serial_port = open(serial_dev, O_RDWR);
@@ -75,9 +75,9 @@ void serial_send_command()
     close(serial_port);
 }
 
-void usb_read_token(char* token)
+void usb_read_token(char *token)
 {
-    char* usb_dev = getenv("USB_DEV");
+    char *usb_dev = getenv("USB_DEV");
 
     struct pollfd fds[1];
     fds[0].fd = open(usb_dev, O_RDONLY | O_NONBLOCK);
@@ -88,16 +88,15 @@ void usb_read_token(char* token)
         exit(1);
     }
 
-    char keys[100] = { 0, 1,
-        '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 12, 13, 14, 15,
-        'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 26, 27, 28, 29,
-        'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 39, 40, 41, 42, 43,
-        'z', 'x', 'c', 'v', 'b', 'n', 'm' };
+    char keys[100] = { 0,  1,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 12,
+                       13, 14, 15,  'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
+                       26, 27, 28,  29,  'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+                       39, 40, 41,  42,  43,  'z', 'x', 'c', 'v', 'b', 'n', 'm' };
 
     struct input_event ev;
     int char_count = 0;
 
-    char* pass = getenv("PASS");
+    char *pass = getenv("PASS");
     sprintf(token, "%s", pass);
 
     while (true) {
@@ -128,7 +127,7 @@ void usb_read_token(char* token)
     close(fds[0].fd);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int sockfd, connfd;
     struct sockaddr_in servaddr, cli;
@@ -150,7 +149,7 @@ int main(int argc, char* argv[])
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(atoi(getenv("PORT")));
 
-    if ((bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr))) != 0) {
+    if ((bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0) {
         printf("socket bind failed...\n");
         exit(0);
     } else {
@@ -165,7 +164,7 @@ int main(int argc, char* argv[])
     }
 
     while (1) {
-        connfd = accept(sockfd, (struct sockaddr*)&cli, &cli_len);
+        connfd = accept(sockfd, (struct sockaddr *)&cli, &cli_len);
         if (connfd < 0) {
             printf("server accept failed...\n");
             exit(0);
