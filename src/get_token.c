@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-void serial_send_command()
+void serial_send_command(void)
 {
     char *serial_dev = getenv("SERIAL_DEV");
     const char check_sym = 'k';
@@ -128,7 +128,7 @@ void usb_read_token(char *token)
     close(fds[0].fd);
 }
 
-int main()
+int main(void)
 {
     int sockfd, connfd;
     struct sockaddr_in servaddr, cli;
