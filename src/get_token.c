@@ -24,7 +24,7 @@ void serial_send_command(void)
 
     if (tcgetattr(serial_port, &tty) != 0) {
         printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     tty.c_cflag &= ~PARENB;
@@ -51,7 +51,7 @@ void serial_send_command(void)
 
     if (tcsetattr(serial_port, TCSANOW, &tty) != 0) {
         printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     unsigned char msg[] = { check_sym, '\r' };
@@ -64,13 +64,13 @@ void serial_send_command(void)
 
     if (num_bytes < 0) {
         printf("Error reading: %s", strerror(errno));
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     if (read_buf[0] != check_sym) {
         printf("Wrong read data\n");
         printf("Read %i bytes. Received message: %s", num_bytes, read_buf);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     close(serial_port);
@@ -86,7 +86,7 @@ void usb_read_token(char *token)
 
     if (fds[0].fd < 0) {
         printf("Error unable open for reading '%s'\n", usb_dev);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     char keys[100] = { 0,  1,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 12,
@@ -140,7 +140,7 @@ int main(void)
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         printf("socket creation failed...\n");
-        exit(0);
+        exit(EXIT_FAILURE);
     } else {
         printf("Socket successfully created..\n");
     }
@@ -152,14 +152,14 @@ int main(void)
 
     if ((bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0) {
         printf("socket bind failed...\n");
-        exit(0);
+        exit(EXIT_FAILURE);
     } else {
         printf("Socket successfully binded..\n");
     }
 
     if ((listen(sockfd, 5)) != 0) {
         printf("Listen failed...\n");
-        exit(0);
+        exit(EXIT_FAILURE);
     } else {
         printf("Server listening..\n");
     }
@@ -168,7 +168,7 @@ int main(void)
         connfd = accept(sockfd, (struct sockaddr *)&cli, &cli_len);
         if (connfd < 0) {
             printf("server accept failed...\n");
-            exit(0);
+            exit(EXIT_FAILURE);
         } else {
             printf("server accept the client...\n");
         }
@@ -186,5 +186,5 @@ int main(void)
 
     close(sockfd);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
