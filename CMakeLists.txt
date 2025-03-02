@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(yubikey-hack)
 
-add_compile_options(-Wall -Wextra -Werror -Wpedantic)
+add_compile_options(-Wall -Wextra -Werror -Wpedantic -std=gnu99)
 add_link_options()
 include_directories(include)
 

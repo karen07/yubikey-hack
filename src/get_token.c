@@ -1,3 +1,4 @@
+#include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <linux/input.h>
@@ -12,7 +13,6 @@
 #include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
-#include <arpa/inet.h>
 
 void serial_send_command(void)
 {
@@ -145,7 +145,7 @@ int main(void)
         printf("Socket successfully created..\n");
     }
 
-    bzero(&servaddr, sizeof(servaddr));
+    memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = inet_addr(getenv("IP"));
     servaddr.sin_port = htons(atoi(getenv("PORT")));
