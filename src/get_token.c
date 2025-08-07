@@ -55,7 +55,12 @@ void serial_send_command(void)
     }
 
     unsigned char msg[] = { check_sym, '\r' };
-    write(serial_port, msg, sizeof(msg));
+    int n = 0;
+    n = write(serial_port, msg, sizeof(msg));
+    if (n != sizeof(msg)) {
+        printf("Wrong write data\n");
+        exit(EXIT_FAILURE);
+    }
 
     char read_buf[256];
     memset(&read_buf, '\0', sizeof(read_buf));
@@ -177,7 +182,12 @@ int main(void)
 
         usb_read_token(token);
 
-        write(connfd, token, strlen(token));
+        size_t n = 0;
+        n = write(connfd, token, strlen(token));
+        if (n != strlen(token)) {
+            printf("Wrong write data\n");
+            exit(EXIT_FAILURE);
+        }
 
         close(connfd);
 
