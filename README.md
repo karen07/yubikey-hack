@@ -1,16 +1,18 @@
 # YubiKey hack
 
-YubiKey hack is a small remote token retrieval service built around a YubiKey, an ESP32-controlled relay, and a Linux host.
-
-The Linux program exposes a TCP service. When a client connects, it sends a command over the serial link to the ESP32, which toggles the relay; the program then reads the token typed by the YubiKey from a Linux input device and returns that token to the TCP client.
-
-The repository is preserved as a focused hardware/software experiment rather than a general remote-authentication product. It assumes trusted deployment conditions and direct control over the attached hardware.
+An experimental remote YubiKey token retrieval service using a Linux host, an
+ESP32-controlled relay, and a YubiKey. A TCP request triggers the relay, reads the
+resulting token, and returns it to the client.
 
 ## Описание
 
-YubiKey hack - небольшой сервис удаленного получения токена, построенный вокруг YubiKey, реле под управлением ESP32 и Linux хоста.
+Экспериментальный сервис для удалённого получения токена YubiKey с Linux-хоста через реле
+под управлением ESP32. TCP-запрос включает реле, считывает полученный токен и возвращает его
+клиенту.
 
-Программа Linux поднимает TCP сервис. При подключении клиента она отправляет команду ESP32 по последовательному соединению, ESP32 переключает реле, после чего программа считывает токен, введенный YubiKey, через устройство ввода Linux и возвращает этот токен TCP клиенту.
+Программа на Linux отправляет команду ESP32 через последовательный порт. Контроллер переключает
+реле, после чего программа считывает токен YubiKey из устройства ввода Linux и возвращает его
+TCP-клиенту.
 
 Репозиторий сохранен как узкий аппаратно-программный эксперимент, а не как универсальный продукт для удаленной аутентификации. Он предполагает доверенную среду эксплуатации и прямой контроль над подключенным оборудованием.
 
